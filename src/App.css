@@ -25,7 +25,9 @@
 }
 
 .removeButton,
-.editButton {
+.editButton,
+.cancelButton,
+.saveButton {
   background: none;
   border: none;
   padding: 0;

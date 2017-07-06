@@ -2,14 +2,26 @@ import React from "react";
 
 import Edit from "./Edit";
 import Remove from "./Remove";
+import Save from "./Save";
+import Cancel from "./Cancel.jsx";
 
 export default function Controlls({
   removeProject,
-  projectId
+  projectId,
+  editMode,
+  toggleEditMode,
+  onCancel
 }) {
+  const EditControlls = editMode ?
+    <div>
+      <Save />
+      <Cancel onClick={onCancel} />
+    </div> :
+    <Edit onClick={toggleEditMode}/>;
+
   return (
     <div className="projectControls">
-      <Edit />
+      {EditControlls}
       <Remove
         removeProject={removeProject}
         projectId={projectId}
@@ -18,4 +30,4 @@ export default function Controlls({
   );
 }
 
-export { Edit, Remove };
+export { Edit, Remove, Save, Cancel };
