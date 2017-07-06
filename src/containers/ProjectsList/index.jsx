@@ -4,11 +4,17 @@ import Project from "./Project";
 
 export default class ProjectsList extends Component {
   render() {
-    const projectsList = this.props.projects.map(project => (
+    const {
+      projects,
+      removeProject
+    } = this.props;
+
+    const projectsList = projects.map(project => (
         <Project
           key={project.id}
           projectId={project.id}
           title={project.title}
+          removeProject={removeProject}
         />
       )
     );

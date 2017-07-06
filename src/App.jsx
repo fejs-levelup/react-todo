@@ -21,6 +21,7 @@ class App extends Component {
 
     this.addNewProject = this.addNewProject.bind(this);
     this.updateTitle = this.updateTitle.bind(this);
+    this.removeProject = this.removeProject.bind(this);
   }
 
   addNewProject() {
@@ -43,6 +44,20 @@ class App extends Component {
     });
   }
 
+  removeProject(id) {
+    const { projects } = this.state;
+    const _index = projects.findIndex(project => project.id === id);
+
+    if(_index === undefined) return;
+
+    this.setState({
+      projects: [
+        ...projects.slice(0, _index),
+        ...projects.slice(_index + 1)
+      ]
+    });
+  }
+
   render() {
     const { projects, projectTitle } = this.state;
 
@@ -56,6 +71,7 @@ class App extends Component {
         
         <ProjectsList
           projects={projects}
+          removeProject={this.removeProject}
         />
       </div>
     );
