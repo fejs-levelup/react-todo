@@ -6,7 +6,8 @@ export default class ProjectsList extends Component {
   render() {
     const {
       projects,
-      removeProject
+      removeProject,
+      saveTitle
     } = this.props;
 
     const projectsList = projects.map(project => (
@@ -15,6 +16,7 @@ export default class ProjectsList extends Component {
           projectId={project.id}
           title={project.title}
           removeProject={removeProject}
+          saveTitle={saveTitle}
         />
       )
     );

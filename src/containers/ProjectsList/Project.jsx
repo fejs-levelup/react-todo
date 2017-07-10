@@ -14,6 +14,8 @@ export default class Project extends Component {
     this.toggleEditMode = this.toggleEditMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCancel = this.onCancel.bind(this);
+    this.onSaveTitle = this.onSaveTitle.bind(this);
+    this.onRemoveProject = this.onRemoveProject.bind(this);
   }
 
   toggleEditMode() {
@@ -38,10 +40,27 @@ export default class Project extends Component {
     this.toggleEditMode();
   }
 
+  onSaveTitle() {
+    const {
+      projectId, saveTitle
+    } = this.props;
+
+    this.toggleEditMode();
+    saveTitle(projectId, this.state.editableTitle);
+  }
+
+  onRemoveProject() {
+    const {
+      projectId,
+      removeProject
+    } = this.props;
+
+    removeProject(projectId);
+  }
+
   render() {
     const {
-      projectId, title,
-      removeProject
+      title
     } = this.props;
 
     const { editMode, editableTitle } = this.state;
@@ -59,11 +78,11 @@ export default class Project extends Component {
         {Title}
 
         <Controlls
-          removeProject={removeProject}
-          projectId={projectId}
+          removeProject={this.onRemoveProject}
           editMode={editMode}
           toggleEditMode={this.toggleEditMode}
           onCancel={this.onCancel}
+          saveTitle={this.onSaveTitle}
         />
       </div>
     );
