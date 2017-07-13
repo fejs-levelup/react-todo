@@ -1,9 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
 
-export default function AddProject({
-  projectTitle: title,
-  updateTitle: onChange,
-  addNewProject: createProject
+function AddProject({
+  title,
+  onChange,
+  createProject
 }) {
   return (
     <div className="appProjectForm">
@@ -13,7 +14,32 @@ export default function AddProject({
         value={title}
         onChange={onChange}
       />
-      <button onClick={createProject}>Add new project</button>
+      <button
+        onClick={() => { createProject(title); }}
+      >
+        Add new project
+      </button>
     </div>
   );
 }
+
+const mapState = ({ projectTitle }) => ({
+  title: projectTitle
+});
+
+const mapDispatch = dispatch => ({
+  onChange(ev) {
+    dispatch({
+      type: "EDIT_TITLE",
+      title: ev.target.value
+    });
+  },
+  createProject(title) {
+    dispatch({ type: "ADD_PROJECT", title });
+    dispatch({ type: "CLEAR_TITLE" });
+  }
+});
+
+AddProject = connect(mapState, mapDispatch)(AddProject);
+
+export default AddProject

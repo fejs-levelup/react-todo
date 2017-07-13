@@ -11,11 +11,6 @@ class App extends Component {
     super();
 
     this.state = {
-      projects: [
-        { id: 0, title: "First project" },
-        { id: 1, title: "Second project" },
-        { id: 2, title: "Another project" }
-      ],
       projectTitle: ""
     };
 
@@ -78,14 +73,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <AddProject
-          projectTitle={projectTitle}
-          updateTitle={this.updateTitle}
-          addNewProject={this.addNewProject}
-        />
+        <AddProject />
         
         <ProjectsList
-          projects={projects}
           removeProject={this.removeProject}
           saveTitle={this.saveTitle}
         />

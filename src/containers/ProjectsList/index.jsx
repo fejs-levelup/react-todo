@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Project from "./Project";
 
-export default class ProjectsList extends Component {
+class ProjectsList extends Component {
   render() {
     const {
       projects,
@@ -28,3 +29,9 @@ export default class ProjectsList extends Component {
     );
   }
 }
+
+const mapState = ({ projects }) => ({ projects });
+
+ProjectsList = connect(mapState)(ProjectsList);
+
+export default ProjectsList;
