@@ -6,9 +6,7 @@ import Project from "./Project";
 class ProjectsList extends Component {
   render() {
     const {
-      projects,
-      removeProject,
-      saveTitle
+      projects
     } = this.props;
 
     const projectsList = projects.map(project => (
@@ -16,8 +14,6 @@ class ProjectsList extends Component {
           key={project.id}
           projectId={project.id}
           title={project.title}
-          removeProject={removeProject}
-          saveTitle={saveTitle}
         />
       )
     );

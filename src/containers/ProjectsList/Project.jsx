@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import Controlls from "../../components/Controlls";
+import { updateTitle, removeProject } from "../../actions/projects";
 
-export default class Project extends Component {
+class Project extends Component {
   constructor(props) {
     super(props);
 
@@ -14,8 +16,6 @@ export default class Project extends Component {
     this.toggleEditMode = this.toggleEditMode.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCancel = this.onCancel.bind(this);
-    this.onSaveTitle = this.onSaveTitle.bind(this);
-    this.onRemoveProject = this.onRemoveProject.bind(this);
   }
 
   toggleEditMode() {
@@ -40,27 +40,12 @@ export default class Project extends Component {
     this.toggleEditMode();
   }
 
-  onSaveTitle() {
-    const {
-      projectId, saveTitle
-    } = this.props;
-
-    this.toggleEditMode();
-    saveTitle(projectId, this.state.editableTitle);
-  }
-
-  onRemoveProject() {
-    const {
-      projectId,
-      removeProject
-    } = this.props;
-
-    removeProject(projectId);
-  }
-
   render() {
     const {
-      title
+      title,
+      projectId,
+      removeProject,
+      saveTitle
     } = this.props;
 
     const { editMode, editableTitle } = this.state;
@@ -78,13 +63,26 @@ export default class Project extends Component {
         {Title}
 
         <Controlls
-          removeProject={this.onRemoveProject}
           editMode={editMode}
           toggleEditMode={this.toggleEditMode}
           onCancel={this.onCancel}
-          saveTitle={this.onSaveTitle}
+          saveTitle={() => { saveTitle(projectId, editableTitle); }}
+          removeProject={() => { removeProject(projectId); }}
         />
       </div>
     );
   }
 }
+
+const mapDispatch = dispatch => ({
+  removeProject(id) {
+    dispatch(removeProject(id));
+  },
+  saveTitle(id, title) {
+    dispatch(updateTitle(id, title));
+  }
+});
+
+Project = connect(null, mapDispatch)(Project);
+
+export default Project;

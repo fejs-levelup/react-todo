@@ -1,5 +1,3 @@
-import React from "react";
-
 import CancelIcon from "./CancelIcon";
 import EditIcon from "./EditIcon";
 import RemoveIcon from "./RemoveIcon";

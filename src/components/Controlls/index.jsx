@@ -13,8 +13,8 @@ import {
 } from "../Icons";
 
 export default function Controlls({
-  removeProject,
   editMode,
+  removeProject,
   toggleEditMode,
   onCancel,
   saveTitle
@@ -23,14 +23,19 @@ export default function Controlls({
   const ActionButtons = editMode ?
     [
       <ActionButton
-        onClick={saveTitle}
+        onClick={() => {
+          saveTitle();
+          toggleEditMode();
+        }}
         buttonClass="actionButton"
+        key="save"
       >
         <SaveIcon />
       </ActionButton>,
       <ActionButton
         onClick={onCancel}
         buttonClass="actionButton"
+        key="cancel"
       >
         <CancelIcon />
       </ActionButton>

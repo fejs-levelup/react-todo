@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { addProject } from "../../actions/projects";
+import { editTitle, clearTitle } from "../../actions/projectTitle";
+
 function AddProject({
   title,
   onChange,
@@ -29,17 +32,14 @@ const mapState = ({ projectTitle }) => ({
 
 const mapDispatch = dispatch => ({
   onChange(ev) {
-    dispatch({
-      type: "EDIT_TITLE",
-      title: ev.target.value
-    });
+    const { value: title } = ev.target;
+
+    dispatch(editTitle(title));
   },
   createProject(title) {
-    dispatch({ type: "ADD_PROJECT", title });
-    dispatch({ type: "CLEAR_TITLE" });
+    dispatch(addProject(title));
+    dispatch(clearTitle());
   }
 });
 
-AddProject = connect(mapState, mapDispatch)(AddProject);
-
-export default AddProject
+export default connect(mapState, mapDispatch)(AddProject);

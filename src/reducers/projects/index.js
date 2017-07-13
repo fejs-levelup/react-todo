@@ -31,8 +31,8 @@ function removeProject(state, { id }) {
   const _index = state.findIndex(project => project.id === id);
 
   return [
-    ...state.silce(0, _index).map(project => Object.assign({}, project)),
-    ...state.silce(_index + 1).map(project => Object.assign({}, project))
+    ...state.slice(0, _index).map(project => Object.assign({}, project)),
+    ...state.slice(_index + 1).map(project => Object.assign({}, project))
   ];
 }
 
@@ -40,8 +40,8 @@ function updateTitle(state, { id, title }) {
   const _index = state.findIndex(project => project.id === id);
 
   return [
-    ...state.silce(0, _index).map(project => Object.assign({}, project)),
+    ...state.slice(0, _index).map(project => Object.assign({}, project)),
     Object.assign({}, state[_index], { title }),
-    ...state.silce(_index + 1).map(project => Object.assign({}, project))
+    ...state.slice(_index + 1).map(project => Object.assign({}, project))
   ];
 }
