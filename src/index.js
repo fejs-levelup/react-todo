@@ -8,10 +8,12 @@ import { Provider } from "react-redux";
 
 import { projects } from "./reducers/projects";
 import { projectTitle } from "./reducers/projectTitle";
+import { tasks } from "./reducers/tasks";
 
 const rootReducer = combineReducers({
   projects,
-  projectTitle
+  projectTitle,
+  tasks
 });
 const store = createStore(rootReducer);
 

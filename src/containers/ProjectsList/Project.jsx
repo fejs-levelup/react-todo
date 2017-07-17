@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import Controlls from "../../components/Controlls";
 import { updateTitle, removeProject } from "../../actions/projects";
+import Tasks from "../Tasks";
 
 class Project extends Component {
   constructor(props) {
@@ -60,14 +61,20 @@ class Project extends Component {
 
     return (
       <div>
-        {Title}
+        <div className="projectContainer">
+          {Title}
 
-        <Controlls
-          editMode={editMode}
-          toggleEditMode={this.toggleEditMode}
-          onCancel={this.onCancel}
-          saveTitle={() => { saveTitle(projectId, editableTitle); }}
-          removeProject={() => { removeProject(projectId); }}
+          <Controlls
+            editMode={editMode}
+            toggleEditMode={this.toggleEditMode}
+            onCancel={this.onCancel}
+            saveTitle={() => { saveTitle(projectId, editableTitle); }}
+            removeProject={() => { removeProject(projectId); }}
+          />
+        </div>
+
+        <Tasks
+          projectId={projectId}
         />
       </div>
     );

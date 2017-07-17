@@ -17,11 +17,41 @@
 
 .projectsList > div {
   margin-bottom: 10px;
+}
+
+.projectContainer {
   padding: 10px;
   background: antiquewhite;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.TaskForm {
+  display: flex;
+  height: 40px;
+  justify-content: space-around;
+  align-items: center;
+  background: #eee;
+}
+
+.TaskForm input {
+  width: 300px;
+  height: 30px;
+  border: none;
+  border-radius: 5px 0 0 5px;
+  padding: 0 0 0 5px;
+}
+
+.TaskForm button {
+  width: 90px;
+  height: 30px;
+  border-radius: 0 5px 5px 0;
+  border: none;
+}
+
+.tasksList {
+
 }
 
 .actionButton {
