@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import Task from "../../containers/Task"
+
 class TasksList extends Component {
   render() {
     const { tasksList } = this.props;
     const tasks = tasksList.map(task => (
-      <div key={task.id}>{task.title}</div>
+      <Task
+        key={task.id}
+        taskId={task.id}
+        title={task.title}
+        completed={task.completed}
+      />
     ));
 
     return (

@@ -41,7 +41,7 @@ function editTitle(state, action) {
   return [
     ...state.slice(0, taskIndex),
     Object.assign({}, state[taskIndex], { title }),
-    ...state.silce(taskIndex + 1)
+    ...state.slice(taskIndex + 1)
   ];
 }
 
@@ -51,7 +51,7 @@ function removeTask(state, action) {
 
   return [
     ...state.slice(0, taskIndex),
-    ...state.silce(taskIndex + 1)
+    ...state.slice(taskIndex + 1)
   ];
 }
 
@@ -63,7 +63,7 @@ function toggleTask(state, action) {
   return [
     ...state.slice(0, taskIndex),
     Object.assign({}, task, { completed: !task.completed }),
-    ...state.silce(taskIndex + 1)
+    ...state.slice(taskIndex + 1)
   ];
 }
 
