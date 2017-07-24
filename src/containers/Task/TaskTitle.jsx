@@ -9,15 +9,17 @@ export default function TaskTitle({
 
   if(isEditEnabled) {
     return (
-      <input
-        type="text"
-        value={title}
-        onChange={onChange}
-      />
+      <div className="taskTitle">
+        <input
+          type="text"
+          value={title}
+          onChange={onChange}
+        />
+      </div>
     );
   }
 
   return (
-    <span>{title}</span>
+    <div className="taskTitle">{title}</div>
   );
 }

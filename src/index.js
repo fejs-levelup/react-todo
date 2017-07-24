@@ -5,6 +5,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { createStore, combineReducers } from "redux";
 import { Provider } from "react-redux";
+import { BrowserRouter } from 'react-router-dom'
 
 import { projects } from "./reducers/projects";
 import { projectTitle } from "./reducers/projectTitle";
@@ -17,8 +18,14 @@ const rootReducer = combineReducers({
 });
 const store = createStore(rootReducer);
 
+function SomeOtherApp() {
+  return <div>Other page</div>
+}
+
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </Provider>, document.getElementById('root'));
 registerServiceWorker();

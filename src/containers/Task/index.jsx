@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import {
-  toggleTask, editTitle
+  toggleTask, editTitle, changeOrder
 } from "../../actions/tasks";
 import TaskControlls from "./TaskControlls";
 import TaskTitle from "./TaskTitle";
@@ -20,6 +20,7 @@ class Task extends Component {
     this.onCancelEdit = this.onCancelEdit.bind(this);
     this.switchEditMode = this.switchEditMode.bind(this);
     this.onSaveTitle = this.onSaveTitle.bind(this);
+    this.move = this.move.bind(this);
   }
 
   onChange() {
@@ -63,10 +64,31 @@ class Task extends Component {
     saveTitle(taskId, editableTitle);
   }
 
+  move(direction) {
+    const {
+      project,
+      taskId: id,
+      order: oldOrder,
+      changeOrder
+    } = this.props;
+
+    return () => {
+      changeOrder({
+        project, id, oldOrder,
+        newOrder: direction === "top" ?
+          oldOrder - 1 :
+          oldOrder + 1
+      });
+    };
+  }
+
   render() {
     const {
       completed,
-      taskId
+      taskId,
+      order,
+      topDisabled,
+      bottomDisabled
     } = this.props;
 
     const { editableTitle, isEditEnabled } = this.state;
@@ -89,6 +111,10 @@ class Task extends Component {
           switchEditMode={this.switchEditMode}
           onCancelEdit={this.onCancelEdit}
           onSaveTitle={this.onSaveTitle}
+          moveTop={this.move("top")}
+          moveBottom={this.move("bottom")}
+          topDisabled={topDisabled}
+          bottomDisabled={bottomDisabled}
         />
       </div>
     );
@@ -101,6 +127,11 @@ const mapDispatch = dispatch => ({
   },
   saveTitle(id, title) {
     dispatch(editTitle(id, title));
+  },
+  changeOrder({ project, id, newOrder, oldOrder }) {
+    dispatch(changeOrder({
+      project, id, newOrder, oldOrder
+    }));
   }
 });
 

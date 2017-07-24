@@ -1,11 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
-import { RemoveIcon } from "../../components/Icons";
+import { RemoveIcon, Caret } from "../../components/Icons";
 import {
   Edit, Save, Cancel
 } from "../../components/Controlls";
+import ActionButton from "../../components/Controlls/ActionButton";
 import { removeTask } from "../../actions/tasks";
+
+const caretStyle = {
+  transform: "rotate(180deg)"
+};
 
 class TaskControlls extends Component {
   constructor(props) {
@@ -28,7 +33,11 @@ class TaskControlls extends Component {
       switchEditMode,
       isEditEnabled,
       onCancelEdit,
-      onSaveTitle
+      onSaveTitle,
+      moveTop,
+      moveBottom,
+      topDisabled,
+      bottomDisabled
     } = this.props;
 
     const EditControlls = isEditEnabled ?
@@ -42,12 +51,30 @@ class TaskControlls extends Component {
           onClick={onCancelEdit}
         />
       ] :
-      <Edit
-        onClick={switchEditMode}
-      />
+      [
+        <Edit
+          onClick={switchEditMode}
+          key="edit"
+        />,
+        <ActionButton
+          key="moveTop"
+          onClick={moveTop}
+          isDisabled={topDisabled}
+        >
+          <Caret />
+        </ActionButton>,
+        <ActionButton
+          key="moveBottom"
+          onClick={moveBottom}
+          isDisabled={bottomDisabled}
+          style={caretStyle}
+        >
+          <Caret />
+        </ActionButton>
+      ]
 
     return (
-      <span>
+      <span className="TaskControlls">
         {EditControlls}
 
         <button
