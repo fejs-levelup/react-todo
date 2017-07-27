@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 
 import Controlls from "../../components/Controlls";
 import { updateTitle, removeProject } from "../../actions/projects";
-import Tasks from "../Tasks";
 import { Link } from "react-router-dom";
 
 class Project extends Component {
@@ -77,10 +76,6 @@ class Project extends Component {
             removeProject={() => { removeProject(projectId); }}
           />
         </div>
-
-        <Tasks
-          projectId={projectId}
-        />
       </div>
     );
   }

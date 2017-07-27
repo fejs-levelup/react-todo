@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import Controlls from "../../components/Controlls";
 import { updateTitle, removeProject } from "../../actions/projects";
@@ -14,13 +15,45 @@ class ProjectPage extends Component {
       editMode: false,
       editableTitle: props.title
     };
+
+    this.onChange = this.onChange.bind(this);
+    this.toggleEditMode = this.toggleEditMode.bind(this);
+    this.onCancel = this.onCancel.bind(this);
+  }
+
+  onChange(ev) {
+    this.setState({
+      editableTitle: ev.target.value
+    });
+  }
+
+  toggleEditMode() {
+    const { editMode } = this.state;
+
+    this.setState({
+      editMode: !editMode
+    });
+  }
+
+  onCancel() {
+    this.setState({
+      editableTitle: this.props.title
+    });
+
+    this.toggleEditMode();
   }
 
   render() {
     const {
       title,
       projectId,
+      removeProject,
+      saveTitle
     } = this.props;
+
+    if(projectId === null) {
+      return <Redirect to="/" />
+    }
 
     const { editMode, editableTitle } = this.state;
 
@@ -28,21 +61,26 @@ class ProjectPage extends Component {
       <input
         type="text"
         value={editableTitle}
-        onChange={() => {}}
+        onChange={this.onChange}
       /> :
       <h3>{title}</h3>;
 
     return (
       <div>
+        <Link to="/">&lt;Home</Link>
         <div className="projectContainer">
           {Title}
 
           <Controlls
             editMode={editMode}
-            toggleEditMode={() => {}}
-            onCancel={() => {}}
-            saveTitle={() => { }}
-            removeProject={() => { }}
+            toggleEditMode={this.toggleEditMode}
+            onCancel={this.onCancel}
+            saveTitle={() => {
+              saveTitle(projectId, editableTitle);
+            }}
+            removeProject={() => {
+              removeProject(projectId);
+            }}
           />
         </div>
 
@@ -57,13 +95,28 @@ class ProjectPage extends Component {
 const mapState = ({
   projects
 }, { match }) => {
-  const { id: projectId } = match.params;
-  const { title } = projects.find(project => project.id === Number.parseInt(projectId, 10));
+  const { id } = match.params;
+  const projectId = Number.parseInt(id, 10);
+  const project = projects.find(project => project.id === projectId);
+
+  if(!project) return {
+    projectId: null,
+    title: null
+  };
 
   return {
     projectId,
-    title
+    title: project.title
   };
 };
 
-export default connect(mapState)(ProjectPage);
+const mapDispatch = dispatch => ({
+  removeProject(id) {
+    dispatch(removeProject(id));
+  },
+  saveTitle(id, title) {
+    dispatch(updateTitle(id, title));
+  }
+});
+
+export default connect(mapState, mapDispatch)(ProjectPage);
