@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import Controlls from "../../components/Controlls";
 import { updateTitle, removeProject } from "../../actions/projects";
 import Tasks from "../Tasks";
+import { Link } from "react-router-dom";
 
 class Project extends Component {
   constructor(props) {
@@ -57,7 +58,11 @@ class Project extends Component {
         value={editableTitle}
         onChange={this.onChange}
       /> :
-      <h3>{title}</h3>;
+      <h3>
+        <Link to={`/project/${projectId}`}>
+          {title}
+        </Link>
+      </h3>;
 
     return (
       <div>

@@ -3,8 +3,9 @@ import './App.css';
 
 import AddProject from "./components/AddProject";
 import ProjectsList from "./containers/ProjectsList";
+import ProjectPage from "./containers/ProjectPage";
 
-import { Route } from "react-router-dom";
+import { Route, Redirect } from "react-router";
 
 function MainComponent() {
   return (
@@ -24,8 +25,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route path="/main" component={MainComponent} />
-        <Route path="/other" component={SomeOtherApp} />
+        <Route exact path="/" component={MainComponent} />
+        <Route path="/project/:id" component={ProjectPage} />
       </div>
     );
   }
